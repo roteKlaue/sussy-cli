@@ -6,9 +6,10 @@ import menus from "./io/Menus";
 
 
 export const setup = async () => {
-    const chalk = await import("chalk");
+    // typescript compiler f**ks this up needs to be manually fixed after compilation
+    const chalk = (await import("chalk")).default;
 
-    const { textMenu, numberedMenu, checkboxMenu, radioSelectionMenu } = menus(chalk as unknown as ChalkInstance);
+    const { textMenu, numberedMenu, checkboxMenu, radioSelectionMenu } = menus(chalk);
 
     return {
         KeyboardListener,

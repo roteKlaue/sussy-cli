@@ -1,6 +1,6 @@
 {
   "name": "sussy-cli",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "**sussy-cli** is a versatile command-line tool designed for ease of use and productivity. Simplify your tasks with user-friendly commands and customization.",
   "types": "./build/index.d.ts",
   "main": ".\\build\\index.js",
