@@ -1,18 +1,25 @@
-require("fix-esm").register();
 import { promptInput, promptBooleanInput, promptConfirm, promptNumberInput } from "./util/PromptInput";
-import { radioSelectionMenu, checkboxMenu, textMenu, numberedMenu } from "./io/Menus";
 import { KeyboardListener } from "./util/KeyListener";
 import { showProgressBar } from "./io/Progressbar";
+import { ChalkInstance } from "chalk";
+import menus from "./io/Menus";
 
-export default {
-    KeyboardListener,
-    radioSelectionMenu,
-    checkboxMenu,
-    numberedMenu,
-    textMenu,
-    showProgressBar,
-    promptBooleanInput,
-    promptNumberInput,
-    promptConfirm,
-    promptInput,
-}
+
+export const setup = async () => {
+    const chalk = await import("chalk");
+
+    const { textMenu, numberedMenu, checkboxMenu, radioSelectionMenu } = menus(chalk as unknown as ChalkInstance);
+
+    return {
+        KeyboardListener,
+        radioSelectionMenu,
+        checkboxMenu,
+        numberedMenu,
+        textMenu,
+        showProgressBar,
+        promptBooleanInput,
+        promptNumberInput,
+        promptConfirm,
+        promptInput,
+    }
+};

@@ -26,21 +26,24 @@ npm install sussy-cli
 ## Usage
 
 ```js
-const sussyCLI = require('sussy-cli');
+async () => {
+  const sussyCLI = await require("sussy-cli").setup();
+  // Example 1: Using a menu
+  const menuOptions = ["Option 1", "Option 2", "Option 3"];
+  sussyCLI
+    .radioSelectionMenu({ prompt: "Choose an option:", options: menuOptions })
+    .then((selectedOption) => {
+      console.log(`You selected: ${menuOptions[selectedOption]}`);
+    });
 
-// Example 1: Using a menu
-const menuOptions = ['Option 1', 'Option 2', 'Option 3'];
-sussyCLI.radioSelectionMenu({ prompt: 'Choose an option:', options: menuOptions })
-  .then((selectedOption) => {
-    console.log(`You selected: ${menuOptions[selectedOption]}`);
-  });
-
-// Example 2: Creating a progress bar
-const totalProgress = 100;
-for (let progress = 0; progress <= totalProgress; progress += 10) {
-  sussyCLI.showProgressBar(progress, totalProgress);
-}
+  // Example 2: Creating a progress bar
+  const totalProgress = 100;
+  for (let progress = 0; progress <= totalProgress; progress += 10) {
+    sussyCLI.showProgressBar(progress, totalProgress);
+  }
+};
 ```
 
 ## License
+
 This project is licensed under the GPL-3.0 - see the [LICENSE](LICENSE) file for details.
