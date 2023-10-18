@@ -11,7 +11,20 @@ type CheckboxOption = {
     name: string;
     selected: boolean;
 };
+
+/**
+ * Set up and configure menu utilities.
+ *
+ * @param {ChalkInstance} chalk - Chalk instance for color formatting.
+ * @returns {object} - An object containing menu creation functions.
+ */
 const setup = (chalk: ChalkInstance) => {
+    /**
+     * Get a color function based on the provided color name.
+     *
+     * @param {string} colorName - The name of the color.
+     * @returns {Function} - A color function from the Chalk instance.
+     */
     const getColorFunction = (colorName: string): Function => {
         return chalk[colorName as keyof typeof chalk] as Function || chalk.green;
     };
@@ -24,7 +37,16 @@ const setup = (chalk: ChalkInstance) => {
             console.log(line);
         });
     }
-
+    
+    /**
+     * Display a radio selection menu.
+     *
+     * @param {object} options - Options for the radio selection menu.
+     * @param {string} options.prompt - The menu prompt.
+     * @param {string} [options.color="green"] - The color for menu items.
+     * @param {string[]} options.options - The list of options.
+     * @returns {Promise<number>} - A Promise that resolves to the selected option index.
+     */
     const radioSelectionMenu = ({ prompt, color, options }: { prompt: string, color?: string, options: string[] }): Promise<number> => {
         return new Promise((resolve, _reject) => {
             const listener = new KeyboardListener(process.stdin, "utf-8");
@@ -68,6 +90,17 @@ const setup = (chalk: ChalkInstance) => {
         });
     };
 
+    
+    /**
+     * Display a checkbox selection menu.
+     *
+     * @param {object} options - Options for the checkbox selection menu.
+     * @param {string} options.prompt - The menu prompt.
+     * @param {Colors} options.colors - The colors for menu items.
+     * @param {string[]} options.options - The list of options.
+     * @param {string} options.last - The label for the last item.
+     * @returns {Promise<number[]>} - A Promise that resolves to an array of selected option indexes.
+     */
     const checkboxMenu = ({ prompt, colors, options, last }: { prompt: string; colors: Colors; options: string[]; last: string }): Promise<number[]> => {
         colors.selected = `bg${StringUtil.capitalize(colors.selected)}`;
 
@@ -122,6 +155,14 @@ const setup = (chalk: ChalkInstance) => {
         });
     };
 
+    /**
+     * Display a numbered selection menu.
+     *
+     * @param {object} options - Options for the numbered selection menu.
+     * @param {string} options.prompt - The menu prompt.
+     * @param {string[]} options.options - The list of options.
+     * @returns {Promise<number>} - A Promise that resolves to the selected option index.
+     */
     const numberedMenu = ({ prompt, options }: { prompt: string; options: string[] }): Promise<number> => {
         return new Promise((resolve, _reject) => {
             const listener = new KeyboardListener(process.stdin, "utf-8");
@@ -161,6 +202,14 @@ const setup = (chalk: ChalkInstance) => {
         });
     };
 
+    /**
+     * Display a text-based menu.
+     *
+     * @param {object} options - Options for the text-based menu.
+     * @param {string} options.prompt - The menu prompt.
+     * @param {string[]} options.options - The list of options.
+     * @returns {Promise<number>} - A Promise that resolves to the selected option index.
+     */
     const textMenu = ({ prompt, options }: { prompt: string; options: string[] }): Promise<number> => {
         return new Promise((resolve, _reject) => {
             const listener = new KeyboardListener(process.stdin, "utf-8");
@@ -207,4 +256,5 @@ const setup = (chalk: ChalkInstance) => {
         textMenu
     }
 };
+
 export default setup;
